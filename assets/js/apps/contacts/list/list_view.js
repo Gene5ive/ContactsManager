@@ -5,7 +5,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
     events: {
       "click": "highlightName",
-      "click": "printModel",
+      "click td a.js-show": "showClicked",
       "click button.js-delete": "deleteClicked"
     },
 
@@ -14,9 +14,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       this.$el.toggleClass("warning");
     },
 
-    printModel: function(e){
+    showClicked: function(e){
       e.preventDefault();
-      console.log("Highlighting toggled on model: ", this.model)
+      e.stopPropagation();
+      this.trigger("contact:show", this.model);
     },
 
     deleteClicked: function(e){

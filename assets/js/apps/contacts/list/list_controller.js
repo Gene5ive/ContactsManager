@@ -11,7 +11,11 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         contacts.remove(model);
       });
 
+      contactsListView.on("itemview:contact:show", function(childView, model){
+        console.log("Received itemview:contact:show event on model ", model);
+      });
+
       ContactManager.mainRegion.show(contactsListView);
     }
-  }
+  };
 });
