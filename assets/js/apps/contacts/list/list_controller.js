@@ -7,12 +7,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         collection: contacts
       });
 
-      contactsListView.on("itemview:contact:delete", function(childView, model){
+      contactsListView.on("childview:contact:delete", function(childView, model){
         contacts.remove(model);
       });
 
-      contactsListView.on("itemview:contact:show", function(childView, model){
-        console.log("Received itemview:contact:show event on model ", model);
+      contactsListView.on("childview:contact:show", function(childView, model){
+        ContactManager.trigger("contact:show", model.get("id"));
       });
 
       ContactManager.mainRegion.show(contactsListView);
