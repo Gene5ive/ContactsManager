@@ -13,6 +13,7 @@
       <div class="navbar-inner">
         <div class="container">
           <span class="brand">Contact Manager</span>
+          <a href="#contacts" class="btn btn-xs btn-default js-home">Home</a>
         </div>
       </div>
     </div>
@@ -37,9 +38,16 @@
       <td><%= firstName %></td>
       <td><%= lastName %></td>
       <td>
-        <a href="#" class="btn btn-xs btn-success js-show">Show</a>
+        <a href="#contacts/" class="btn btn-xs btn-success js-show">Show</a>
         <button class="btn btn-xs btn-danger js-delete">Delete</button>
       </td>
+    </script>
+
+    <script type="text/template" id="missing-contact-view">
+      <div class="alert alert-danger" role="alert">
+        <span class="sr-only">Error:</span>
+        There is not contact present at this address.
+      </div>
     </script>
 
     <script type="text/template" id="contact-view">
@@ -51,10 +59,11 @@
     <script src="./assets/js/vendor/json2.js"></script>
     <script src="./assets/js/vendor/underscore.js"></script>
     <script src="./assets/js/vendor/backbone.js"></script>
+    <script src="./assets/js/vendor/backbone.localstorage.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/apps/config/storage/localstorage.js"></script>
     <script src="./assets/js/entities/contact.js"></script>
-
     <script src="./assets/js/apps/contacts/contacts_app.js"></script>
     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
