@@ -16,7 +16,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
   var contacts;
 
   var initializeContacts = function(){
-    contacts = new Entities.ContactCollection([
+    var contacts = new Entities.ContactCollection([
       {
         id: 1,
         firstName: "Alice",
@@ -39,25 +39,42 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     contacts.forEach(function(contact){
       contact.save();
     });
-    return contacts;
+    return contact.models;
   };
 
   var API = {
     getContactEntities: function(){
       var contacts = new Entities.ContactCollection();
-      contacts.fetch();
-      if(contacts.length === 0){
-        return initializeContacts();
-      }
-      return contacts;
+      var defer = $.Deferred();
+      contacts.fetch({
+        success: function(data){
+          defer.resolve(data);
+        }
+      });
+      var promise = defer.promise();
+      $.when(promise).done(function(contacts){
+        if(contacts.length === 0){
+          var models = initializeContacts();
+          contacts.reset(models);
+        }
+      }),
+      return promise;
     },
 
     getContactEntity: function(contactId){
       var contact = new Entities.Contact({id: contactId});
+      var defer = $.Deferred();
       setTimeout(function(){
-        contact.fetch();
+        contact.fetch({
+          success: function(data){
+            defer.resolve(data);
+          },
+          error: function(data){
+            defer.resolve(undefined);
+          }
+        });
       }, 2000);
-      return contact;
+      return defer.promise();
     }
   };
 
