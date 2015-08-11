@@ -3,13 +3,15 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     urlRoot: "contacts"
   });
 
-  Entities.configureStorage(Entities.ContactCollection);
+  Entities.configureStorage(Entities.Contact);
 
   Entities.ContactCollection = Backbone.Collection.extend({
     url: "contacts",
     model: Entities.Contact,
     comparator: "firstName"
   });
+
+  Entities.configureStorage(Entities.ContactCollection);
 
   var contacts;
 
@@ -34,14 +36,28 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         phoneNumber: "555-8901"
       }
     ]);
+    contacts.forEach(function(contact){
+      contact.save();
+    });
+    return contacts;
   };
 
   var API = {
     getContactEntities: function(){
-      if(contacts === undefined){
-        initializeContacts();
+      var contacts = new Entities.ContactCollection();
+      contacts.fetch();
+      if(contacts.length === 0){
+        return initializeContacts();
       }
       return contacts;
+    },
+
+    getContactEntity: function(contactId){
+      var contact = new Entities.Contact({id: contactId});
+      setTimeout(function(){
+        contact.fetch();
+      }, 2000);
+      return contact;
     }
   };
 

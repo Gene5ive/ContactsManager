@@ -1,12 +1,11 @@
 ContactManager.module("ContactsApp.Show", function(Show, ContactManager, Backbone, Marionette, $, _){
   Show.Controller = {
     showContact: function(id){
-      var contacts = ContactManager.request("contact:entities");
-      var model = contacts.get(id);
+      var contacts = ContactManager.request("contact:entities", id);
       var contactView;
-      if(model !== undefined){
+      if(contact !== undefined){
         contactView = new Show.Contact({
-          model: model
+          model: contact
         });
       } else {
         contactView = new Show.MissingContact();
