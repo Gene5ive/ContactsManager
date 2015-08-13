@@ -39,7 +39,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     contacts.forEach(function(contact){
       contact.save();
     });
-    return contact.models;
+    return contacts.models;
   };
 
   var API = {
@@ -57,7 +57,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
           var models = initializeContacts();
           contacts.reset(models);
         }
-      }),
+      });
       return promise;
     },
 
