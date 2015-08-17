@@ -15,6 +15,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
           ContactManager.trigger("contact:show", model.get("id"));
         });
 
+        contactsListView.on("childview:contact:edit", function(childView, model){
+          console.log("edit link clicked");
+        });
+
         contactsListView.on("childview:contact:delete", function(childView, model){
           model.destroy();
         });
